@@ -1,0 +1,11 @@
+{
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "emotion",
+    "@babel/plugin-proposal-export-default-from",
+    "@babel/plugin-proposal-nullish-coalescing-operator"
+  ]
+}
