@@ -1,2 +1,2 @@
 # X to Y
-frontend app for converting thing into other things
+frontend app for converting things into other things

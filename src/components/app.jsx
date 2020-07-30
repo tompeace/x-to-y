@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react"
+import React, { useState, useCallback, useEffect } from "react"
 import { css } from 'emotion';
 
 export default function Main(props) {
@@ -37,11 +37,12 @@ export default function Main(props) {
   `;
 
   const convertButton = css`
-    display: block;
+    align-self: center;
   `;
   
   const [ source, setSource ] = useState(false);
-  const handleDragOver = e => e.preventDefault();
+  const [ format, setFormat ] = useState(false);
+  const [ result, setResult ] = useState(false);
 
   const handleDrop = e => {
     e.preventDefault()
@@ -49,6 +50,7 @@ export default function Main(props) {
     const reader = new FileReader();
     reader.onload = e => {
       if (!source) {
+        console.log(e.target.result);
         setSource(e.target.result);
       } else if (confirm('overwrite current source?')) {
         setSource(e.target.result);
@@ -57,46 +59,56 @@ export default function Main(props) {
 
     if (e.dataTransfer.files) {
       for (const item of e.dataTransfer.files) {
-        reader.readAsDataURL(item);
+        reader.readAsArrayBuffer(item);
       }
     }
   }
 
-  const backgroundImage = `url(${source})`;
+  const handleSetFormat = e => setFormat(e.target.value);
 
-  const convertXtoY = file => {}
+  const getSource = useCallback(() => {
+    return `url(${source})`
+  }, [source]);
+
+  const getResult = useCallback(() => {
+
+  }, [source, format]);
+
+  const getFormat = useCallback(() => {
+
+  }, [format]);
+
+  const getPreview = () => ({});
 
   return (
     <div className={container}>
       <div>
         <div 
           className={box}
-          onDragOver={handleDragOver}
+          onDragOver={e => e.preventDefault()}
           onDrop={handleDrop}>
           {source ? (
             <div
               className={sourceContainer}
-              style={{ backgroundImage }}
+              style={getPreview()}
             />
           ) : (
             <h1 className={boxPlaceholder}>X</h1>
           )}
         </div>
-        <select name="returnType">
+      </div>
+      <div className={convertButton}>
+        to
+        <select onChange={handleSetFormat}>
           <option value="data-url">data url</option>
           <option value="jsx">JSX component</option>
         </select>
       </div>
-      <button
-        className={convertButton}
-        onClick={convertXtoY}>
-        to
-      </button>
       <div>
         <div className={box}>
-          {source ? (
+          {result ? (
             <div className={resultContainer}>
-              {source}
+              {getResult()}
             </div>
           ) : (
             <h1 className={boxPlaceholder}>Y</h1>

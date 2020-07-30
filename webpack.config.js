@@ -1,5 +1,6 @@
 const path = require('path')
 const HTMLwebplugin = require('html-webpack-plugin')
+const WasmPackPlugin = require("@wasm-tool/wasm-pack-plugin");
 
 module.exports = {
   entry: path.join(__dirname, 'src', 'index.js'),
@@ -22,6 +23,11 @@ module.exports = {
   plugins: [
     new HTMLwebplugin({
       template: './public/index.html'
+    }),
+    new WasmPackPlugin({
+      crateDirectory: path.resolve(__dirname, 'image-converter'),
+      outDir: path.resolve(__dirname, 'public/wasm'),
+      args: "--log-level warn"
     })
   ],
   devtool: 'eval-cheap-source-map',
