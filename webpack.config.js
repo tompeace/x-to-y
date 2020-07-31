@@ -6,7 +6,7 @@ module.exports = {
   entry: path.join(__dirname, 'src', 'index.js'),
   output: {
     publicPath: '/',
-    path: path.resolve(__dirname, '/.build'),
+    path: path.join(__dirname, 'build'),
     filename: 'index.js'
   },
   module: {
@@ -25,15 +25,15 @@ module.exports = {
       template: './public/index.html'
     }),
     new WasmPackPlugin({
-      crateDirectory: path.resolve(__dirname, 'image-converter'),
-      outDir: path.resolve(__dirname, 'public/wasm'),
+      crateDirectory: path.join(__dirname, 'image-converter'),
+      outDir: path.join(__dirname, 'image-converter'),
       args: "--log-level warn"
     })
   ],
   devtool: 'eval-cheap-source-map',
   resolve: {
     alias: {
-      '@src': path.resolve(__dirname, './src')
+      '@src': path.join(__dirname, 'src')
     }
   },
   devServer: {

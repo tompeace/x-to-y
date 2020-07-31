@@ -1,8 +1,7 @@
-import React, { useState, useCallback, useEffect } from "react"
+import React, { useState, useCallback } from "react"
 import { css } from 'emotion';
 
 export default function Main(props) {
-  
   const container = css`
     display: flex;
     justify-content: space-between;

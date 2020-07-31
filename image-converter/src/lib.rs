@@ -15,5 +15,5 @@ extern {
 
 #[wasm_bindgen]
 pub fn greet() {
-    alert("Hello, image-converter!");
+    alert("Hello from wasm/rust!");
 }
