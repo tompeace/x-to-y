@@ -25,8 +25,8 @@ module.exports = {
       template: './public/index.html'
     }),
     new WasmPackPlugin({
-      crateDirectory: path.join(__dirname, 'image-converter'),
-      outDir: path.join(__dirname, 'image-converter'),
+      crateDirectory: path.join(__dirname, 'bin/image-converter'),
+      outDir: path.join(__dirname, 'bin/image-converter/pkg'),
       args: "--log-level warn"
     })
   ],
